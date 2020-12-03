@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keekz_application/screens/03_inspire/local_widgets/swipeBackground.dart';
 import 'local_widgets/keekzCard.dart';
 
 class InspireScreen extends StatefulWidget {
@@ -27,8 +28,18 @@ class _InspireScreenState extends State<InspireScreen> {
             resizeDuration: Duration(milliseconds: 200),
             movementDuration: Duration(milliseconds: 200),
             key: UniqueKey(),
-            background: slideRightBackground(),
-            secondaryBackground: slideLeftBackground(),
+            background: SwipeBackground(
+              icon: Icon(Icons.delete),
+              text: "Mag ich nicht",
+              mainAxisAlignment: MainAxisAlignment.end,
+              textAlign: TextAlign.right,
+            ),
+            secondaryBackground: SwipeBackground(
+              icon: Icon(Icons.favorite),
+              text: "Mag ich",
+              mainAxisAlignment: MainAxisAlignment.start,
+              textAlign: TextAlign.left,
+            ),
             child: item,
             onDismissed: (direction) {
               // Remove the item from the data source.
@@ -53,64 +64,6 @@ class _InspireScreenState extends State<InspireScreen> {
             },
           );
         },
-      ),
-    );
-  }
-
-  Widget slideRightBackground() {
-    return Container(
-      color: Colors.white10,
-      child: Align(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: 20,
-            ),
-            Icon(
-              Icons.edit,
-              color: Colors.black,
-            ),
-            Text(
-              " Mir gefällt es hier!",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ],
-        ),
-        alignment: Alignment.centerLeft,
-      ),
-    );
-  }
-
-  Widget slideLeftBackground() {
-    return Container(
-      color: Colors.white10,
-      child: Align(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Icon(
-              Icons.delete,
-              color: Colors.black,
-            ),
-            Text(
-              " Mir gefällt es hier nicht!",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.right,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-          ],
-        ),
-        alignment: Alignment.centerRight,
       ),
     );
   }

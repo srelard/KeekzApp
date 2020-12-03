@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:keekz/screens/initial/onboarding/onboarding_screen.dart';
-import 'package:lottie/lottie.dart';
-import '../../../constants.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../screen_export.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,12 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => OnboardingScreen(
+                builder: (context) => HomeScreen(
                     screenHeight: MediaQuery.of(context).size.height))));
 
-    /*  Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => OnboardingScreen(
-                screenHeight: MediaQuery.of(context).size.height)))); */
+    /*  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnboardingScreen(screenHeight: MediaQuery.of(context).size.height)))); */
   }
 
   @override

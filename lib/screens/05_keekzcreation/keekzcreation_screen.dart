@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:keekz/screens/home/keekz/indicator_keekz.dart';
-import 'package:keekz/screens/initial/onboarding/onboarding_screen.dart';
-import '../../../constants.dart';
+import 'package:keekz_application/utilities/constants.dart';
+
+import 'local_widgets/indicator.dart';
 
 class KeekzScreen extends StatefulWidget {
   static final String id = 'map_screen';
@@ -15,18 +13,14 @@ class KeekzScreen extends StatefulWidget {
 }
 
 class _KeekzScreenState extends State<KeekzScreen> {
-  Completer<GoogleMapController> _controller = Completer();
-
-  static final CameraPosition _kLake =
-      CameraPosition(target: LatLng(51.2189, 8.7575), zoom: 10.151926040649414);
   final int _numPages = 2;
   int _currentPage = 0;
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
     for (int i = 0; i < _numPages; i++) {
       list.add(i == _currentPage
-          ? IndicatorKeekz(isActive: true)
-          : IndicatorKeekz(isActive: false));
+          ? Indicator(isActive: true)
+          : Indicator(isActive: false));
     }
     return list;
   }
@@ -37,13 +31,9 @@ class _KeekzScreenState extends State<KeekzScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-            color: kBlue,
-            onPressed: () {
-              Navigator.pushNamed(context, OnboardingScreen.id);
-            },
-            icon: Icon(Icons.chevron_left)),
+            color: kBlue, onPressed: () {}, icon: Icon(Icons.chevron_left)),
         title: Text(
-          'Keekz',
+          'KeekzCreation',
           style: TextStyle(
             color: kBlack,
             fontSize: 35.0,
@@ -53,7 +43,6 @@ class _KeekzScreenState extends State<KeekzScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          // mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
@@ -76,23 +65,14 @@ class _KeekzScreenState extends State<KeekzScreen> {
             ),
             SizedBox(height: 12),
             Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              height: 300,
-              child: GoogleMap(
-                mapType: MapType.normal,
-                initialCameraPosition: _kLake,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-              ),
-            ),
+                alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+                child: Text("Hier kommt Google Maps Karte")),
             SizedBox(height: 12),
             Container(
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
-              //color: kWhite,
-              //height: MediaQuery.of(context).size.height,
               child: Text("Füge Hashtags hinzu:",
                   style: TextStyle(
                     color: kBlack,
@@ -101,14 +81,13 @@ class _KeekzScreenState extends State<KeekzScreen> {
             ),
             SizedBox(height: 12),
             Container(
-              //alignment: Alignment.center,
               width: MediaQuery.of(context).size.width,
               //color: kWhite,
               //height: MediaQuery.of(context).size.height,
               child: Expanded(
                 child: SizedBox(
                   height: 70.0,
-                  /*  child: ListView.builder(
+                  child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
@@ -123,7 +102,7 @@ class _KeekzScreenState extends State<KeekzScreen> {
                         ),
                       );
                     },
-                  ), */
+                  ),
                 ),
               ),
             ),

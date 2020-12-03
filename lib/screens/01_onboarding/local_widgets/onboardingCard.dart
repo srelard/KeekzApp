@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keekz_application/utilities/constants.dart';
+import 'package:lottie/lottie.dart';
 
 class OnboardingCard extends StatelessWidget {
   final String headline;

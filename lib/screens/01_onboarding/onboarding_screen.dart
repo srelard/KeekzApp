@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keekz_application/utilities/constants.dart';
 import 'package:keekz_application/widgets/rippleAnimation.dart';
-
+import '../screen_export.dart';
 import 'local_widgets/indicator.dart';
 import 'local_widgets/onboardingCard.dart';
 
@@ -65,8 +65,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => LoginScreen(
-          screenHeight: widget.screenHeight,
-        ),
+            //screenHeight: widget.screenHeight,
+            ),
       ),
     );
   }
@@ -122,19 +122,19 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                                 headline: "Entdecken!",
                                 subline:
                                     "Entdecke mit Keez neue Orte und Aktivitäten in deiner lokalen Nähe!",
-                                image: kOnboarding1Path,
+                                image: "lib/assets/animations/nature_grow.json",
                                 imageHeight: 300),
                             OnboardingCard(
                                 headline: "Teilen",
                                 subline:
                                     "Teile interessante Orte und Aktivitäten mit der Community und erhalte virtuelles Karma!",
-                                image: kOnboarding2Path,
+                                image: "lib/assets/animations/nature_grow.json",
                                 imageHeight: 300),
                             OnboardingCard(
                               headline: "Sammeln",
                               subline:
                                   "Tausche dein gesammeltes Karma gegen einen echten Baum aus!",
-                              image: kOnboarding3Path,
+                              image: "lib/assets/animations/nature_grow.json",
                               imageHeight: 300,
                               repeat: false,
                             ),

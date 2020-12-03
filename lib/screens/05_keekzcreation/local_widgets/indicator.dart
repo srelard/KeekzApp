@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:keekz/constants.dart';
+import 'package:keekz_application/utilities/constants.dart';
 
-class IndicatorKeekz extends StatelessWidget {
+class Indicator extends StatelessWidget {
   final bool isActive;
-  const IndicatorKeekz({Key key, @required this.isActive}) : super(key: key);
+  const Indicator({Key key, @required this.isActive}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(

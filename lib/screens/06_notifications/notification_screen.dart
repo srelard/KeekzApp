@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keekz_application/utilities/constants.dart';
 
-class ProfileScreen extends StatefulWidget {
+class NotificationScreen extends StatefulWidget {
   static final String id = 'map_screen';
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _NotificationScreenState createState() => _NotificationScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         leading: IconButton(
             color: kBlue, onPressed: () {}, icon: Icon(Icons.chevron_left)),
         title: Text(
-          'ProfileScreen',
+          'Notification',
           style: TextStyle(
             color: kBlack,
             fontSize: 35.0,
@@ -30,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           color: kDarkBlue,
-          child: Text("ProfileScreen",
+          child: Text("Notification",
               style: TextStyle(
                 color: kWhite,
               )),

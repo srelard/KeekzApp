@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'indicator.dart';
 
 class KeekzCard extends StatefulWidget {
   final String imagePath;
@@ -154,10 +155,6 @@ class _KeekzCardState extends State<KeekzCard> {
             children: [
               Expanded(
                 child: Text(""),
-                /* FlatButton(
-                  onPressed: () => {print("Previous")},
-                  child: Text(""),
-                ), */
               ),
               FlatButton(
                 padding: EdgeInsets.all(20),
@@ -176,10 +173,6 @@ class _KeekzCardState extends State<KeekzCard> {
             children: [
               Expanded(
                 child: Text(""),
-                /* FlatButton(
-                  onPressed: () => {print("Previous")},
-                  child: Text(""),
-                ), */
               ),
               FlatButton(
                 padding: EdgeInsets.all(20),

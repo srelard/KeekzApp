@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keekz_application/utilities/constants.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'screen_export.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _pageController,
         children: <Widget>[
           InspireScreen(),
-          MapScreen(),
+          MapviewScreen(),
           KeekzScreen(),
           NotificationScreen(),
           ProfileScreen(),
