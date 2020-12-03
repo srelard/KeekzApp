@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:keekz/screens/home/inspire/parts/keekzCard.dart';
+import 'local_widgets/keekzCard.dart';
 
-class InspireMeDismissScreen extends StatefulWidget {
+class InspireScreen extends StatefulWidget {
   @override
-  _InspireMeDismissScreenState createState() => _InspireMeDismissScreenState();
+  _InspireScreenState createState() => _InspireScreenState();
 }
 
-class _InspireMeDismissScreenState extends State<InspireMeDismissScreen> {
+class _InspireScreenState extends State<InspireScreen> {
   final cards = List<dynamic>.generate(
       11, (i) => KeekzCard(imagePath: "lib/assets/${i + 1}.jpg"));
   @override

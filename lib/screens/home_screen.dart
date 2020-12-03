@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'screen_export.dart';
 
 class HomeScreen extends StatefulWidget {
   final double screenHeight;
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         children: <Widget>[
-          InspireMeDismissScreen(),
+          InspireScreen(),
           MapScreen(),
           KeekzScreen(),
           NotificationScreen(),
