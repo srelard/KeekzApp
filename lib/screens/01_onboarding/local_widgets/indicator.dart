@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keekz/constants.dart';
+import 'package:keekz_application/utilities/constants.dart';
 
 class Indicator extends StatelessWidget {
   final bool isActive;

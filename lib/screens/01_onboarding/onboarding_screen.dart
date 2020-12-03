@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:keekz/constants.dart';
-import 'package:keekz/screens/home/home_screen.dart';
-import 'package:keekz/screens/initial/login/login_screen.dart';
-import 'package:keekz/screens/initial/onboarding/parts/indicator.dart';
-import 'package:keekz/screens/initial/onboarding/parts/onboardingCard.dart';
-import 'package:keekz/widgets/ripple.dart';
-import 'package:lottie/lottie.dart';
+
+import 'local_widgets/indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static final String id = 'onboarding_screen';

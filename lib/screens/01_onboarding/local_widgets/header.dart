@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keekz/constants.dart';
-import 'package:keekz/widgets/logo.dart';
+import 'package:keekz_application/utilities/constants.dart';
 
 class Header extends StatelessWidget {
   @override
@@ -10,10 +9,7 @@ class Header extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Logo(
-            color: kBlue,
-            size: 48.0,
-          ),
+          Icon(Icons.ac_unit),
           const SizedBox(height: kSpaceM),
           Text(
             'Onboarding auf Keekz',
