@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:keekz/screens/initial/onboarding/parts/indicator.dart';
 
 class KeekzCard extends StatefulWidget {
   final String imagePath;

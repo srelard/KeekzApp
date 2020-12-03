@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keekz_application/utilities/constants.dart';
+import 'package:keekz_application/widgets/rippleAnimation.dart';
 
 import 'local_widgets/indicator.dart';
+import 'local_widgets/onboardingCard.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static final String id = 'onboarding_screen';
