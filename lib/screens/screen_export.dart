@@ -1,3 +1,4 @@
+export '00_splash/splash_screen.dart';
 export '01_onboarding/onboarding_screen.dart';
 export '02_login/login_screen.dart';
 export '03_inspire/inspire_screen.dart';
