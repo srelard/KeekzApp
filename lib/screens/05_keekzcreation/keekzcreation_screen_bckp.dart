@@ -13,9 +13,6 @@ class KeekzScreen extends StatefulWidget {
 }
 
 class _KeekzScreenState extends State<KeekzScreen> {
-  List<String> _filters;
-  bool _isSelected;
-
   final List<String> keekzProperties = [
     "Idyllisch",
     "Städtisch",
@@ -36,47 +33,6 @@ class _KeekzScreenState extends State<KeekzScreen> {
     "Kultur",
   ];
 
-  List<KeekzProperties> _properties = <KeekzProperties>[
-    const KeekzProperties('Spazieren'),
-    const KeekzProperties('Joggen'),
-    const KeekzProperties('Gassi gehen'),
-    const KeekzProperties('Entspannung'),
-    const KeekzProperties('Sonnenuntergang'),
-  ];
-  List<KeekzOccasion> _occasion = <KeekzOccasion>[
-    const KeekzOccasion('Spazieren'),
-    const KeekzOccasion('Joggen'),
-    const KeekzOccasion('Gassi gehen'),
-    const KeekzOccasion('Entspannung'),
-    const KeekzOccasion('Sonnenuntergang'),
-  ];
-
-  Iterable<Widget> get keekzProps sync* {
-    for (KeekzProperties keekzProps in _properties) {
-      yield Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: FilterChip(
-          avatar: CircleAvatar(
-            child: Text(keekzProps.name[0].toUpperCase()),
-          ),
-          label: Text(keekzProps.name),
-          selected: _filters.contains(keekzProps.name),
-          onSelected: (bool selected) {
-            setState(() {
-              if (selected) {
-                _filters.add(keekzProps.name);
-              } else {
-                _filters.removeWhere((String name) {
-                  return name == keekzProps.name;
-                });
-              }
-            });
-          },
-        ),
-      );
-    }
-  }
-
   final int _numPages = 2;
   int _currentPage = 0;
 
@@ -90,17 +46,8 @@ class _KeekzScreenState extends State<KeekzScreen> {
     return list;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    keekzOccasion.sort();
-    keekzProperties.sort();
-    _isSelected = false;
-    _filters = <String>[];
-  }
-
   Widget chip(String label, Color color, int i, String type) {
-    return FilterChip(
+    return Chip(
         key: UniqueKey(),
         labelPadding: EdgeInsets.all(5.0),
         avatar: CircleAvatar(
@@ -117,12 +64,11 @@ class _KeekzScreenState extends State<KeekzScreen> {
         elevation: 0.0,
         shadowColor: Colors.grey[60],
         padding: EdgeInsets.all(6.0),
-        selected: true,
-        onSelected: (bool selected) {
+        onDeleted: () {
           setState(() {
-            // type == "Properties"
-            //? selected ? _filters.add(keekzProperties[i] : null   // keekzProperties.removeAt(i)
-            // : keekzOccasion.removeAt(i);
+            type == "properties"
+                ? keekzProperties.removeAt(i)
+                : keekzOccasion.removeAt(i);
           });
         });
   }
@@ -147,6 +93,13 @@ class _KeekzScreenState extends State<KeekzScreen> {
       );
     }
     return chipsList;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    keekzOccasion.sort();
+    keekzProperties.sort();
   }
 
   @override
@@ -210,7 +163,7 @@ class _KeekzScreenState extends State<KeekzScreen> {
               alignment: WrapAlignment.start,
               spacing: 6.0,
               runSpacing: 6.0,
-              children: keekzProps.toList(), //_getChipsProperties(),
+              children: _getChipsProperties(),
             ),
             SizedBox(height: 12),
             Wrap(
@@ -218,7 +171,6 @@ class _KeekzScreenState extends State<KeekzScreen> {
               runSpacing: 6.0,
               children: _getChipsOccasion(),
             ),
-            Text('Selected: ${_filters.join(', ')}'),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               child: RaisedButton(
@@ -231,14 +183,4 @@ class _KeekzScreenState extends State<KeekzScreen> {
       ),
     );
   }
-}
-
-class KeekzOccasion {
-  const KeekzOccasion(this.name);
-  final String name;
-}
-
-class KeekzProperties {
-  const KeekzProperties(this.name);
-  final String name;
 }

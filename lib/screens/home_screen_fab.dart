@@ -80,12 +80,17 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Karte",
           ),
           BottomNavigationBarItem(
+              icon: Icon(
+            Icons.ac_unit,
+            color: Colors.black,
+          )),
+          /* BottomNavigationBarItem(
             icon: Icon(
               Icons.add,
               size: 32.0,
             ),
             label: "Keekz",
-          ),
+          ), */
           BottomNavigationBarItem(
             icon: Icon(
               Icons.notifications,

@@ -5,38 +5,70 @@ class SwipeBackground extends StatelessWidget {
   final Icon icon;
   final MainAxisAlignment mainAxisAlignment;
   final TextAlign textAlign;
+  final bool iconLeft;
 
   const SwipeBackground(
       {Key key,
       @required this.text,
       @required this.icon,
       this.mainAxisAlignment,
-      this.textAlign})
+      this.textAlign,
+      this.iconLeft})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white10,
-      child: Align(
-        child: Row(
-          mainAxisAlignment: mainAxisAlignment,
-          children: <Widget>[
-            icon,
-            Text(
-              text,
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w700,
+    return iconLeft
+        ? (Container(
+            color: Colors.white10,
+            child: Align(
+              child: Row(
+                mainAxisAlignment: mainAxisAlignment,
+                children: <Widget>[
+                  icon,
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: textAlign,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                ],
               ),
-              textAlign: textAlign,
+              alignment: Alignment.centerRight,
             ),
-            SizedBox(
-              width: 20,
+          ))
+        : Container(
+            color: Colors.white10,
+            child: Align(
+              child: Row(
+                mainAxisAlignment: mainAxisAlignment,
+                children: <Widget>[
+                  Text(
+                    text,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: textAlign,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  icon,
+                  SizedBox(
+                    width: 20,
+                  ),
+                ],
+              ),
+              alignment: Alignment.centerRight,
             ),
-          ],
-        ),
-        alignment: Alignment.centerRight,
-      ),
-    );
+          );
   }
 }

@@ -9,8 +9,24 @@ class InspireScreen extends StatefulWidget {
 }
 
 class _InspireScreenState extends State<InspireScreen> {
-  final cards = List<dynamic>.generate(
-      11, (i) => KeekzCard(imagePath: "lib/assets/${i + 1}.jpg"));
+  final List<dynamic> cardsTutorial = [
+    KeekzCard(imagePath: "lib/assets/images/placeholder/red.jpg"),
+    KeekzCard(imagePath: "lib/assets/images/placeholder/green.jpg")
+  ];
+  final List<dynamic> cardsFinal = [
+    KeekzCard(imagePath: "lib/assets/images/placeholder/blue.jpg"),
+    KeekzCard(imagePath: "lib/assets/images/placeholder/yellow.jpg")
+  ];
+  final List<dynamic> cards = [];
+
+  // final cards = List<dynamic>.generate(11, (i) => KeekzCard(imagePath: "lib/assets/placeholder/${i + 1}.jpg"));
+
+  @override
+  void initState() {
+    super.initState();
+    cards.addAll(cardsTutorial);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,28 +47,29 @@ class _InspireScreenState extends State<InspireScreen> {
             background: SwipeBackground(
               icon: Icon(Icons.delete),
               text: "Mag ich nicht",
-              mainAxisAlignment: MainAxisAlignment.end,
-              textAlign: TextAlign.right,
+              mainAxisAlignment: MainAxisAlignment.start,
+              textAlign: TextAlign.left,
+              iconLeft: true,
             ),
             secondaryBackground: SwipeBackground(
               icon: Icon(Icons.favorite),
               text: "Mag ich",
-              mainAxisAlignment: MainAxisAlignment.start,
-              textAlign: TextAlign.left,
+              mainAxisAlignment: MainAxisAlignment.end,
+              textAlign: TextAlign.right,
+              iconLeft: false,
             ),
             child: item,
             onDismissed: (direction) {
               // Remove the item from the data source.
               setState(() {
                 cards.removeAt(index);
+                cards.length < 1 ? cards.addAll(cardsFinal) : () => {};
               });
               String action;
               if (direction == DismissDirection.startToEnd) {
-                //dislike this place
                 action = "dislike";
                 print(action);
               } else {
-                //like this place
                 action = "like";
                 print(action);
               }
