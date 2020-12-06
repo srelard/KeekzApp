@@ -11,7 +11,7 @@ class OnboardingScreen extends StatefulWidget {
   static final String id = 'onboarding_screen';
   final double screenHeight;
   const OnboardingScreen({
-    required this.screenHeight,
+    @required this.screenHeight,
   }) : assert(screenHeight != null);
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -19,8 +19,8 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen>
     with TickerProviderStateMixin {
-  late AnimationController _rippleAnimationController;
-  late Animation<double> _rippleAnimation;
+  AnimationController _rippleAnimationController;
+  Animation<double> _rippleAnimation;
 
   final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
@@ -188,7 +188,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
             AnimatedBuilder(
               animation: _rippleAnimation,
-              builder: (_, Widget? child) {
+              builder: (_, Widget child) {
                 return Ripple(
                   radius: _rippleAnimation.value,
                 );

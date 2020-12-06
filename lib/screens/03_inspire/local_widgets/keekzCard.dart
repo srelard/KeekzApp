@@ -4,7 +4,7 @@ import 'indicator.dart';
 class KeekzCard extends StatefulWidget {
   final String imagePath;
 
-  const KeekzCard({Key? key, required this.imagePath}) : super(key: key);
+  const KeekzCard({Key key, @required this.imagePath}) : super(key: key);
 
   @override
   _KeekzCardState createState() => _KeekzCardState(imagePath: imagePath);
@@ -15,7 +15,7 @@ class _KeekzCardState extends State<KeekzCard> {
   PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
   final String imagePath;
-  _KeekzCardState({required this.imagePath});
+  _KeekzCardState({@required this.imagePath});
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];

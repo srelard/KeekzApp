@@ -8,12 +8,12 @@ class SwipeBackground extends StatelessWidget {
   final bool iconLeft;
 
   const SwipeBackground(
-      {Key? key,
-      required this.text,
-      required this.icon,
-      required this.mainAxisAlignment,
-      required this.textAlign,
-      required this.iconLeft})
+      {Key key,
+      @required this.text,
+      @required this.icon,
+      @required this.mainAxisAlignment,
+      @required this.textAlign,
+      @required this.iconLeft})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

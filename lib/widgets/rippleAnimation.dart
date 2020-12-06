@@ -5,7 +5,7 @@ class Ripple extends StatelessWidget {
   final double radius;
 
   const Ripple({
-    required this.radius,
+    @required this.radius,
   }) : assert(radius != null);
 
   @override

@@ -10,6 +10,26 @@ class MapviewScreen extends StatefulWidget {
 }
 
 class _MapviewScreenState extends State<MapviewScreen> {
+  List<Widget> _getCardsLeft() {
+    final children = <Widget>[];
+    for (var i = 0; i < 8; i++) {
+      children.add(
+        new GridCard(horizontal: false, tag: "Held$i"),
+      );
+    }
+    return children;
+  }
+
+  List<Widget> _getCardsRight() {
+    final children = <Widget>[];
+    for (var i = 9; i < 14; i++) {
+      children.add(
+        new GridCard(horizontal: false, tag: "Held$i"),
+      );
+    }
+    return children;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,18 +52,8 @@ class _MapviewScreenState extends State<MapviewScreen> {
               //mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Column(children: [
-                  GridCard(horizontal: true),
-                  GridCard(horizontal: false),
-                  GridCard(horizontal: true),
-                  GridCard(horizontal: false),
-                ]),
-                Column(children: [
-                  GridCard(horizontal: false),
-                  GridCard(horizontal: true),
-                  GridCard(horizontal: false),
-                  GridCard(horizontal: true),
-                ]),
+                Column(children: _getCardsLeft()),
+                Column(children: _getCardsRight()),
               ]),
         ),
       ),

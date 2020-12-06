@@ -9,12 +9,12 @@ class OnboardingCard extends StatelessWidget {
   final bool repeat;
   final double imageHeight;
   const OnboardingCard(
-      {Key? key,
-      required this.headline,
-      required this.subline,
-      required this.image,
-      required this.imageHeight,
-      required this.repeat})
+      {Key key,
+      @required this.headline,
+      @required this.subline,
+      @required this.image,
+      @required this.imageHeight,
+      @required this.repeat})
       : super(key: key);
   @override
   Widget build(BuildContext context) {

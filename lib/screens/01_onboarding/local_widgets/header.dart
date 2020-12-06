@@ -3,7 +3,7 @@ import 'package:keekz_application/utilities/constants.dart';
 
 class Header extends StatelessWidget {
   @override
-  Widget build(BuildContext? context) {
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kPaddingL),
       child: Column(
