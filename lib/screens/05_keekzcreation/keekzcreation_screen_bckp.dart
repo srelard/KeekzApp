@@ -40,8 +40,14 @@ class _KeekzScreenState extends State<KeekzScreen> {
     List<Widget> list = [];
     for (int i = 0; i < _numPages; i++) {
       list.add(i == _currentPage
-          ? Indicator(isActive: true)
-          : Indicator(isActive: false));
+          ? Indicator(
+              isActive: true,
+              key: null,
+            )
+          : Indicator(
+              isActive: false,
+              key: null,
+            ));
     }
     return list;
   }

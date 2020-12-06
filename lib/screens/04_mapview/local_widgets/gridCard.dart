@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GridCard extends StatelessWidget {
   final bool horizontal;
 
-  const GridCard({Key key, @required this.horizontal}) : super(key: key);
+  const GridCard({Key? key, required this.horizontal}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(

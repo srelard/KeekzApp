@@ -7,7 +7,7 @@ import 'screen_export.dart';
 class HomeScreen extends StatefulWidget {
   final double screenHeight;
   const HomeScreen({
-    @required this.screenHeight,
+    required this.screenHeight,
   }) : assert(screenHeight != null);
 
   @override
@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   int _currentTab = 0;
-  PageController _pageController;
+  late PageController _pageController;
   //TabController _tabController;
 
   @override

@@ -3,7 +3,7 @@ import 'package:keekz_application/utilities/constants.dart';
 
 class Indicator extends StatelessWidget {
   final bool isActive;
-  const Indicator({Key key, @required this.isActive}) : super(key: key);
+  const Indicator({Key? key, required this.isActive}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(

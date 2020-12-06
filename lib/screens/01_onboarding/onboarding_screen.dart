@@ -11,7 +11,7 @@ class OnboardingScreen extends StatefulWidget {
   static final String id = 'onboarding_screen';
   final double screenHeight;
   const OnboardingScreen({
-    @required this.screenHeight,
+    required this.screenHeight,
   }) : assert(screenHeight != null);
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
@@ -19,8 +19,8 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen>
     with TickerProviderStateMixin {
-  AnimationController _rippleAnimationController;
-  Animation<double> _rippleAnimation;
+  late AnimationController _rippleAnimationController;
+  late Animation<double> _rippleAnimation;
 
   final int _numPages = 3;
   final PageController _pageController = PageController(initialPage: 0);
@@ -119,12 +119,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                           },
                           children: <Widget>[
                             OnboardingCard(
+                                repeat: false,
                                 headline: "Entdecken!",
                                 subline:
                                     "Entdecke mit Keez neue Orte und Aktivitäten in deiner lokalen Nähe!",
                                 image: "lib/assets/animations/nature_grow.json",
                                 imageHeight: 300),
                             OnboardingCard(
+                                repeat: false,
                                 headline: "Teilen",
                                 subline:
                                     "Teile interessante Orte und Aktivitäten mit der Community und erhalte virtuelles Karma!",
@@ -186,7 +188,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             ),
             AnimatedBuilder(
               animation: _rippleAnimation,
-              builder: (_, Widget child) {
+              builder: (_, Widget? child) {
                 return Ripple(
                   radius: _rippleAnimation.value,
                 );

@@ -13,8 +13,8 @@ class KeekzScreen extends StatefulWidget {
 }
 
 class _KeekzScreenState extends State<KeekzScreen> {
-  List<String> _filters;
-  bool _isSelected;
+  late List<String> _filters;
+  late bool _isSelected;
 
   final List<String> keekzProperties = [
     "Idyllisch",

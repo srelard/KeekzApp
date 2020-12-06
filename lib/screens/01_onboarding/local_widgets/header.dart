@@ -3,7 +3,7 @@ import 'package:keekz_application/utilities/constants.dart';
 
 class Header extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext? context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kPaddingL),
       child: Column(
@@ -13,16 +13,16 @@ class Header extends StatelessWidget {
           const SizedBox(height: kSpaceM),
           Text(
             'Onboarding auf Keekz',
-            style: Theme.of(context)
+            /* style: Theme.of(context)
                 .textTheme
                 .headline5
-                .copyWith(color: kWhite, fontWeight: FontWeight.bold),
+                .copyWith(color: kWhite, fontWeight: FontWeight.bold), */
           ),
           const SizedBox(height: kSpaceS),
           Text(
             'Hier steht ein cooler Text',
-            style:
-                Theme.of(context).textTheme.subtitle1.copyWith(color: kWhite),
+            /*style:
+                 Theme.of(context).textTheme.subtitle1.copyWith(color: kWhite), */
           ),
         ],
       ),
