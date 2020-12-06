@@ -9,12 +9,12 @@ class Indicator extends StatelessWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: 150),
       margin: EdgeInsets.symmetric(horizontal: 8.0),
-      height: 6.0,
+      height: 5.0,
       width: isActive
           ? MediaQuery.of(context).size.width * 0.46
           : MediaQuery.of(context).size.width * 0.46,
       decoration: BoxDecoration(
-        color: isActive ? kBlue : Colors.grey[400],
+        color: isActive ? Colors.orangeAccent : Colors.grey[400],
         borderRadius: BorderRadius.all(Radius.circular(6)),
       ),
     );

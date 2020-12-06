@@ -7,7 +7,6 @@ import 'local_widgets/home_screen_materialBar.dart';
 import 'local_widgets/home_screen_tabView.dart';
 import '../screen_export.dart';
 
-//test
 class HomeScreen extends StatefulWidget {
   final double screenHeight;
   const HomeScreen({
@@ -60,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: () {},
-        backgroundColor: kBlue,
+        backgroundColor: Colors.orangeAccent,
         child: new Icon(Icons.add),
         elevation: 4.0,
       ),
@@ -69,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //ConvexBar(),
           CupertinoTabBar(
         backgroundColor: Colors.black,
-        activeColor: kBlue,
+        activeColor: Colors.orangeAccent,
         currentIndex: _currentTab,
         onTap: (int index) {
           setState(() {

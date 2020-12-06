@@ -23,7 +23,7 @@ class GridCard extends StatelessWidget {
             height: horizontal == true ? 400 : 500,
             width: horizontal == true ? 200 : 200,
             child: Card(
-              color: Colors.amber,
+              color: Colors.orangeAccent,
             ),
           ),
         ),

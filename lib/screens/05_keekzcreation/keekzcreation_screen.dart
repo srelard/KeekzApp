@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:keekz_application/utilities/constants.dart';
-
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'local_widgets/indicator.dart';
+import 'local_widgets/textField.dart';
 
 class KeekzScreen extends StatefulWidget {
   static final String id = 'map_screen';
@@ -13,28 +17,27 @@ class KeekzScreen extends StatefulWidget {
 }
 
 class _KeekzScreenState extends State<KeekzScreen> {
-  List<String> _filters;
-  bool _isSelected;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String _email;
+  String _password;
+  bool _autoValidate = true;
+  final _picker = ImagePicker(); //added
+  File _image1;
+  File _image2;
+  File _image3;
+  TextEditingController _captionController = TextEditingController();
+  String _caption = '';
+  final int _numPages = 2;
+  int _currentPage = 0;
+  List<String> _filtersProperties;
+  List<String> _filtersOccasions;
 
-  final List<String> keekzProperties = [
-    "Idyllisch",
-    "Städtisch",
-    "Historisch",
-    "Grün"
-  ];
-  final List<String> keekzOccasion = [
-    "Spazieren",
-    "Joggen",
-    "Gassi gehen",
-    "Entspannung",
-    "Aussicht",
-    "Sonnenuntergang",
-    "Date",
-    "Spielplatz",
-    "See",
-    "Picknick",
-    "Kultur",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _filtersProperties = <String>[];
+    _filtersOccasions = <String>[];
+  }
 
   List<KeekzProperties> _properties = <KeekzProperties>[
     const KeekzProperties('Idyllisch'),
@@ -62,19 +65,25 @@ class _KeekzScreenState extends State<KeekzScreen> {
   Iterable<Widget> get _keekzProperties sync* {
     for (KeekzProperties _keekzProperties in _properties) {
       yield Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(0),
         child: FilterChip(
           avatar: CircleAvatar(
-            child: Text(_keekzProperties.name[0].toUpperCase()),
+            child: Text("E"),
+            backgroundColor: Colors.blueAccent,
           ),
           label: Text(_keekzProperties.name),
-          selected: _filters.contains(_keekzProperties.name),
+          labelPadding: EdgeInsets.symmetric(horizontal: 3),
+          selectedColor: Colors.orangeAccent,
+          elevation: 3.0,
+          shadowColor: Colors.grey[60],
+          padding: EdgeInsets.all(6.0),
+          selected: _filtersProperties.contains(_keekzProperties.name),
           onSelected: (bool selected) {
             setState(() {
               if (selected) {
-                _filters.add(_keekzProperties.name);
+                _filtersProperties.add(_keekzProperties.name);
               } else {
-                _filters.removeWhere((String name) {
+                _filtersProperties.removeWhere((String name) {
                   return name == _keekzProperties.name;
                 });
               }
@@ -88,19 +97,26 @@ class _KeekzScreenState extends State<KeekzScreen> {
   Iterable<Widget> get _keekzOccasions sync* {
     for (KeekzOccasion _keekzOccasions in _occasion) {
       yield Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(0),
         child: FilterChip(
           avatar: CircleAvatar(
-            child: Text(_keekzOccasions.name[0].toUpperCase()),
+            child: Text("A"), //Text(_keekzOccasions.name[0].toUpperCase()),
+            backgroundColor: Colors.greenAccent,
           ),
           label: Text(_keekzOccasions.name),
-          selected: _filters.contains(_keekzOccasions.name),
+          labelPadding: EdgeInsets.symmetric(horizontal: 3),
+          selected: _filtersOccasions.contains(_keekzOccasions.name),
+          //backgroundColor: Colors.greenAccent,
+          selectedColor: Colors.orangeAccent,
+          elevation: 3.0,
+          shadowColor: Colors.grey[60],
+          padding: EdgeInsets.all(6.0),
           onSelected: (bool selected) {
             setState(() {
               if (selected) {
-                _filters.add(_keekzOccasions.name);
+                _filtersOccasions.add(_keekzOccasions.name);
               } else {
-                _filters.removeWhere((String name) {
+                _filtersOccasions.removeWhere((String name) {
                   return name == _keekzOccasions.name;
                 });
               }
@@ -110,9 +126,6 @@ class _KeekzScreenState extends State<KeekzScreen> {
       );
     }
   }
-
-  final int _numPages = 2;
-  int _currentPage = 0;
 
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
@@ -124,67 +137,69 @@ class _KeekzScreenState extends State<KeekzScreen> {
     return list;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    keekzOccasion.sort();
-    keekzProperties.sort();
-    _isSelected = false;
-    _filters = <String>[];
+  _androidDialog(String key) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: Text('Add Photo'),
+          children: <Widget>[
+            SimpleDialogOption(
+              child: Text('Take Photo'),
+              onPressed: () => _handleImage(ImageSource.camera, key),
+            ),
+            SimpleDialogOption(
+              child: Text('Choose From Gallery'),
+              onPressed: () => _handleImage(ImageSource.gallery, key),
+            ),
+            SimpleDialogOption(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.redAccent,
+                ),
+              ),
+              onPressed: () => {},
+            ),
+          ],
+        );
+      },
+    );
   }
 
-  Widget chip(String label, Color color, int i, String type) {
-    return FilterChip(
-        key: UniqueKey(),
-        labelPadding: EdgeInsets.all(5.0),
-        avatar: CircleAvatar(
-          backgroundColor: Colors.grey.shade600,
-          child: Text(label[0].toUpperCase()),
-        ),
-        label: Text(
-          label,
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: color,
-        elevation: 0.0,
-        shadowColor: Colors.grey[60],
-        padding: EdgeInsets.all(6.0),
-        selected: true,
-        onSelected: (bool selected) {
-          setState(() {
-            // type == "Properties"
-            //? selected ? _filters.add(keekzProperties[i] : null   // keekzProperties.removeAt(i)
-            // : keekzOccasion.removeAt(i);
-          });
-        });
-  }
-
-  //List<Widget> _getChips(BuildContext context) {}
-
-  List<Widget> _getChipsOccasion() {
-    List<Widget> chipsList = [];
-    for (int i = 0; i < keekzOccasion.length; i++) {
-      chipsList.add(
-        chip(keekzOccasion[i], Color(0xFF4db6ff), i, "Occasion"),
-      );
+  _handleImage(ImageSource source, String key) async {
+    Navigator.pop(context);
+    PickedFile imageFile = await _picker.getImage(source: source);
+    if (imageFile != null) {
+      File imageTmp = await _cropImage(File(imageFile.path));
+      setState(() {
+        key == "1"
+            ? _image1 = imageTmp
+            : key == "2"
+                ? _image2 = imageTmp
+                : _image3 = imageTmp;
+      });
     }
-    return chipsList;
   }
 
-  List<Widget> _getChipsProperties() {
-    List<Widget> chipsList = [];
-    for (int i = 0; i < keekzProperties.length; i++) {
-      chipsList.add(
-        chip(keekzProperties[i], Color(0xFF4db6ac), i, "Properties"),
-      );
-    }
-    return chipsList;
+  _cropImage(File imageFile) async {
+    File croppedImage = await ImageCropper.cropImage(
+      sourcePath: imageFile.path,
+      aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
+      androidUiSettings: AndroidUiSettings(
+          toolbarColor: Colors.black,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          activeControlsWidgetColor: Colors.white,
+          lockAspectRatio: false),
+    );
+    return croppedImage;
   }
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -198,7 +213,7 @@ class _KeekzScreenState extends State<KeekzScreen> {
           ),
         ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -209,57 +224,132 @@ class _KeekzScreenState extends State<KeekzScreen> {
                 children: _buildPageIndicator(),
               ),
             ),
-            Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              child: Text("Wähle hier den Ort aus:",
-                  style: TextStyle(
-                    color: kBlack,
-                    fontSize: 20,
-                  )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () => {_androidDialog("1")},
+                  child: Container(
+                    height: width * 0.3,
+                    width: width * 0.3,
+                    color: Colors.grey[300],
+                    child: _image1 == null
+                        ? Icon(
+                            Icons.add_a_photo,
+                            color: Colors.white70,
+                            size: 50.0,
+                          )
+                        : Image(
+                            image: FileImage(_image1),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => {_androidDialog("2")},
+                  child: Container(
+                    height: width * 0.3,
+                    width: width * 0.3,
+                    color: Colors.grey[300],
+                    child: _image2 == null
+                        ? Icon(
+                            Icons.add_a_photo,
+                            color: Colors.white70,
+                            size: 50.0,
+                          )
+                        : Image(
+                            image: FileImage(_image2),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => {_androidDialog("3")},
+                  child: Container(
+                    height: width * 0.3,
+                    width: width * 0.3,
+                    color: Colors.grey[300],
+                    child: _image3 == null
+                        ? Icon(
+                            Icons.add_a_photo,
+                            color: Colors.white70,
+                            size: 50.0,
+                          )
+                        : Image(
+                            image: FileImage(_image3),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            Form(
+              autovalidateMode: _autoValidate
+                  ? AutovalidateMode.always
+                  : AutovalidateMode.disabled,
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  CustomTextField(
+                    onSaved: (input) {
+                      _email = input;
+                    },
+                    validator: (input) => input.length < 6
+                        ? 'Must be at least 6 characters'
+                        : null,
+                    icon: Icon(MdiIcons.cookie),
+                    hint: "Gib deinem Keekz einen Namen",
+                  ),
+                  SizedBox(height: 10),
+                  CustomTextField(
+                    onSaved: (input) {
+                      _email = input;
+                    },
+                    validator: (input) => input.length < 6
+                        ? 'Must be at least 6 characters'
+                        : null,
+                    icon: Icon(MdiIcons.cookie),
+                    hint: "Gib deinem Keekz einen Namen",
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 12),
             Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,
                 height: 100,
-                child: Text("Hier kommt Google Maps Karte")),
+                color: Colors.grey[300],
+                child: Icon(Icons.map)),
             SizedBox(height: 12),
-            Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              child: Text("Füge Hashtags hinzu:",
-                  style: TextStyle(
-                    color: kBlack,
-                    fontSize: 20,
-                  )),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Wrap(
+                  spacing: 6,
+                  runSpacing: 0,
+                  children: _keekzProperties.toList(),
+                ),
+              ),
             ),
             SizedBox(height: 12),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: SizedBox(height: 70.0, child: Text("")),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Wrap(
+                  alignment: WrapAlignment.start,
+                  spacing: 3,
+                  runSpacing: 0,
+                  children: _keekzOccasions.toList(),
+                ),
+              ),
             ),
             SizedBox(height: 12),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children: _keekzProperties.toList(),
-            ),
-            SizedBox(height: 12),
-            Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children: _keekzOccasions.toList(),
-            ),
-            SizedBox(height: 12),
-            /*  Wrap(
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children: _getChipsOccasion(),
-            ), */
-            Text('Selected: ${_filters.join(', ')}'),
+            Text('Selected Properties: ${_filtersProperties.join(', ')}'),
+            Text('Selected Occasions: ${_filtersOccasions.join(', ')}'),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,
               child: RaisedButton(
