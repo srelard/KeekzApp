@@ -6,4 +6,4 @@ export '04_mapview/mapview_screen.dart';
 export '05_keekzcreation/keekzcreation_screen.dart';
 export '06_notifications/notification_screen.dart';
 export '07_profile/profile_screen.dart';
-export 'home_screen.dart';
+export '_home/home_screen.dart';

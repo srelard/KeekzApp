@@ -18,9 +18,9 @@ class GridCard extends StatelessWidget {
       child: Hero(
         tag: tag,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: Container(
-            height: horizontal == true ? 200 : 350,
+            height: horizontal == true ? 400 : 500,
             width: horizontal == true ? 200 : 200,
             child: Card(
               color: Colors.amber,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:keekz_application/utilities/constants.dart';
 
-import 'local_widgets/indicator.dart';
+import 'indicator.dart';
 
 class KeekzScreen extends StatefulWidget {
   static final String id = 'map_screen';

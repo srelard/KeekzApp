@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:keekz_application/utilities/constants.dart';
 
-import 'local_widgets/indicator.dart';
+import 'indicator.dart';
 
 class KeekzScreen extends StatefulWidget {
   static final String id = 'map_screen';
@@ -37,71 +37,37 @@ class _KeekzScreenState extends State<KeekzScreen> {
   ];
 
   List<KeekzProperties> _properties = <KeekzProperties>[
-    const KeekzProperties('Idyllisch'),
-    const KeekzProperties('Städtisch'),
-    const KeekzProperties('Historisch'),
+    const KeekzProperties('Spazieren'),
+    const KeekzProperties('Joggen'),
+    const KeekzProperties('Gassi gehen'),
+    const KeekzProperties('Entspannung'),
+    const KeekzProperties('Sonnenuntergang'),
   ];
   List<KeekzOccasion> _occasion = <KeekzOccasion>[
     const KeekzOccasion('Spazieren'),
     const KeekzOccasion('Joggen'),
     const KeekzOccasion('Gassi gehen'),
     const KeekzOccasion('Entspannung'),
-    const KeekzOccasion('Gegend erkunden'),
-    const KeekzOccasion('Aussicht'),
     const KeekzOccasion('Sonnenuntergang'),
-    const KeekzOccasion('Date'),
-    const KeekzOccasion('Chillen'),
-    const KeekzOccasion('Sonnen'),
-    const KeekzOccasion('Kultur'),
-    const KeekzOccasion('Regional Essen'),
-    const KeekzOccasion('Spielplatz'),
-    const KeekzOccasion('See'),
-    const KeekzOccasion('Picknick'),
   ];
 
-  Iterable<Widget> get _keekzProperties sync* {
-    for (KeekzProperties _keekzProperties in _properties) {
+  Iterable<Widget> get keekzProps sync* {
+    for (KeekzProperties keekzProps in _properties) {
       yield Padding(
         padding: const EdgeInsets.all(6.0),
         child: FilterChip(
           avatar: CircleAvatar(
-            child: Text(_keekzProperties.name[0].toUpperCase()),
+            child: Text(keekzProps.name[0].toUpperCase()),
           ),
-          label: Text(_keekzProperties.name),
-          selected: _filters.contains(_keekzProperties.name),
+          label: Text(keekzProps.name),
+          selected: _filters.contains(keekzProps.name),
           onSelected: (bool selected) {
             setState(() {
               if (selected) {
-                _filters.add(_keekzProperties.name);
+                _filters.add(keekzProps.name);
               } else {
                 _filters.removeWhere((String name) {
-                  return name == _keekzProperties.name;
-                });
-              }
-            });
-          },
-        ),
-      );
-    }
-  }
-
-  Iterable<Widget> get _keekzOccasions sync* {
-    for (KeekzOccasion _keekzOccasions in _occasion) {
-      yield Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: FilterChip(
-          avatar: CircleAvatar(
-            child: Text(_keekzOccasions.name[0].toUpperCase()),
-          ),
-          label: Text(_keekzOccasions.name),
-          selected: _filters.contains(_keekzOccasions.name),
-          onSelected: (bool selected) {
-            setState(() {
-              if (selected) {
-                _filters.add(_keekzOccasions.name);
-              } else {
-                _filters.removeWhere((String name) {
-                  return name == _keekzOccasions.name;
+                  return name == keekzProps.name;
                 });
               }
             });
@@ -244,21 +210,14 @@ class _KeekzScreenState extends State<KeekzScreen> {
               alignment: WrapAlignment.start,
               spacing: 6.0,
               runSpacing: 6.0,
-              children: _keekzProperties.toList(),
+              children: keekzProps.toList(), //_getChipsProperties(),
             ),
             SizedBox(height: 12),
             Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 6.0,
-              runSpacing: 6.0,
-              children: _keekzOccasions.toList(),
-            ),
-            SizedBox(height: 12),
-            /*  Wrap(
               spacing: 6.0,
               runSpacing: 6.0,
               children: _getChipsOccasion(),
-            ), */
+            ),
             Text('Selected: ${_filters.join(', ')}'),
             Container(
               width: MediaQuery.of(context).size.width * 0.8,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screen_export.dart';
+import '../../screen_export.dart';
 
 class TabView extends StatelessWidget {
   final TabController tabController;

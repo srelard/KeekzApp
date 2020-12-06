@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keekz_application/utilities/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'home_screen_convexBar.dart';
-import 'home_screen_materialBar.dart';
-import 'home_screen_tabView.dart';
-import 'screen_export.dart';
+import 'local_widgets/home_screen_convexBar.dart';
+import 'local_widgets/home_screen_materialBar.dart';
+import 'local_widgets/home_screen_tabView.dart';
+import '../screen_export.dart';
 
 class HomeScreen extends StatefulWidget {
   final double screenHeight;

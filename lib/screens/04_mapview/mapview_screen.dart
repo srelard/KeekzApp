@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:keekz_application/screens/04_mapview/local_widgets/gridCard.dart';
 import 'package:keekz_application/utilities/constants.dart';
 
@@ -14,7 +15,7 @@ class _MapviewScreenState extends State<MapviewScreen> {
     final children = <Widget>[];
     for (var i = 0; i < 8; i++) {
       children.add(
-        new GridCard(horizontal: false, tag: "Held$i"),
+        new GridCard(horizontal: i.isEven ? true : false, tag: "Held$i"),
       );
     }
     return children;
@@ -22,9 +23,9 @@ class _MapviewScreenState extends State<MapviewScreen> {
 
   List<Widget> _getCardsRight() {
     final children = <Widget>[];
-    for (var i = 9; i < 14; i++) {
+    for (var i = 9; i < 17; i++) {
       children.add(
-        new GridCard(horizontal: false, tag: "Held$i"),
+        new GridCard(horizontal: i.isEven ? true : false, tag: "Held$i"),
       );
     }
     return children;
@@ -33,19 +34,28 @@ class _MapviewScreenState extends State<MapviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            color: kBlue, onPressed: () {}, icon: Icon(Icons.chevron_left)),
-        title: Text(
-          'MapView',
-          style: TextStyle(
-            color: kBlack,
-            fontSize: 35.0,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+              color: kBlue, onPressed: () {}, icon: Icon(Icons.chevron_left)),
+          title: Text(
+            'MapView',
+            style: TextStyle(
+              color: kBlack,
+              fontSize: 35.0,
+            ),
           ),
         ),
-      ),
-      body: Container(
+        body: new StaggeredGridView.countBuilder(
+          crossAxisCount: 4,
+          itemCount: 20,
+          itemBuilder: (BuildContext context, int index) => new GridCard(
+              horizontal: index.isEven ? true : false, tag: "Held$index"),
+          staggeredTileBuilder: (int index) => new StaggeredTile.fit(2),
+          mainAxisSpacing: 2.0,
+          crossAxisSpacing: 2.0,
+        )
+        /* Container(
         //height: 1000,
         child: SingleChildScrollView(
           child: Row(
@@ -56,7 +66,7 @@ class _MapviewScreenState extends State<MapviewScreen> {
                 Column(children: _getCardsRight()),
               ]),
         ),
-      ),
-    );
+      ), */
+        );
   }
 }
