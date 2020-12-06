@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:keekz_application/screens/04_mapview/local_widgets/gridCard.dart';
 import 'package:keekz_application/utilities/constants.dart';
 
 class MapviewScreen extends StatefulWidget {
@@ -24,16 +25,26 @@ class _MapviewScreenState extends State<MapviewScreen> {
           ),
         ),
       ),
-      body: Center(
-        child: Container(
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          color: kDarkBlue,
-          child: Text("MapView",
-              style: TextStyle(
-                color: kWhite,
-              )),
+      body: Container(
+        //height: 1000,
+        child: SingleChildScrollView(
+          child: Row(
+              //mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(children: [
+                  GridCard(horizontal: true),
+                  GridCard(horizontal: false),
+                  GridCard(horizontal: true),
+                  GridCard(horizontal: false),
+                ]),
+                Column(children: [
+                  GridCard(horizontal: false),
+                  GridCard(horizontal: true),
+                  GridCard(horizontal: false),
+                  GridCard(horizontal: true),
+                ]),
+              ]),
         ),
       ),
     );
