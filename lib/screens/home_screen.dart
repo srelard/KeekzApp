@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keekz_application/utilities/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'home_screen_convexBar.dart';
+import 'home_screen_materialBar.dart';
+import 'home_screen_tabView.dart';
 import 'screen_export.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //with SingleTickerProviderStateMixin {
   int _currentTab = 0;
   PageController _pageController;
   //TabController _tabController;
@@ -36,17 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-
-          /* TabBarView(
-        children: <Widget>[
-          InspireScreen(),
-          MapviewScreen(),
-          KeekzScreen(),
-          NotificationScreen(),
-          ProfileScreen()
-        ],
-        controller: _tabController,
-      ), */
+          //TabView(),
           PageView(
         physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
@@ -70,77 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 4.0,
       ),
       bottomNavigationBar:
-
-          /* Material(
-        animationDuration: Duration(milliseconds: 20),
-        color: Colors.black,
-        textStyle: TextStyle(fontSize: 10),
-        child: TabBar(
-          labelStyle: TextStyle(fontSize: 11),
-          labelPadding: EdgeInsets.all(0),
-          tabs: <Tab>[
-            Tab(
-              iconMargin: EdgeInsets.symmetric(vertical: 5),
-              icon: Icon(
-                MdiIcons.mapMarkerRadius,
-                size: 32.0,
-              ),
-              text: "Inspirieren",
-            ),
-            Tab(
-              iconMargin: EdgeInsets.symmetric(vertical: 5),
-              icon: Icon(
-                Icons.map_outlined,
-                size: 32.0,
-              ),
-              text: "Karte",
-            ),
-            Tab(
-              iconMargin: EdgeInsets.symmetric(vertical: 5),
-              icon: Icon(
-                Icons.add,
-                size: 32.0,
-              ),
-              text: "Keekz",
-            ),
-            Tab(
-              iconMargin: EdgeInsets.symmetric(vertical: 5),
-              icon: Icon(
-                Icons.notifications,
-                size: 32.0,
-              ),
-              text: "Benachrichtigung",
-            ),
-            Tab(
-              iconMargin: EdgeInsets.symmetric(vertical: 5),
-              icon: Icon(
-                Icons.person,
-                size: 32.0,
-              ),
-              text: "Profil",
-            ),
-          ],
-          controller: _tabController,
-        ), */
-
-          /* ConvexAppBar(
-        backgroundColor: Colors.black,
-        style: TabStyle.fixedCircle,
-        height: 50,
-        curveSize: 100,
-        top: -18,
-        cornerRadius: 0,
-        items: [
-          TabItem(icon: MdiIcons.mapMarkerRadius, title: "Inspirieren"),
-          TabItem(icon: Icons.map_outlined, title: "Inspirieren"),
-          TabItem(icon: Icons.add, title: "Inspirieren"),
-          TabItem(icon: Icons.notifications, title: "Inspirieren"),
-          TabItem(icon: Icons.person, title: "Inspirieren"),
-        ],
-        initialActiveIndex: 1 /*optional*/,
-        onTap: (int i) => print('click index=$i'),
-      ), */
-
+          //MaterialBar(),
+          //ConvexBar(),
           CupertinoTabBar(
         backgroundColor: Colors.black,
         activeColor: kBlue,
