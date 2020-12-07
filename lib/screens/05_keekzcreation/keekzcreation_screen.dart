@@ -237,8 +237,54 @@ class _KeekzScreenState extends State<KeekzScreen> {
                 ),
               ),
               Container(
-                  height: 40,
-                  child: TimelineTile(axis: TimelineAxis.horizontal)),
+                constraints: const BoxConstraints(maxHeight: 75),
+                child: Row(mainAxisSize: MainAxisSize.min, children: [
+                  TimelineTile(
+                    axis: TimelineAxis.horizontal,
+                    alignment: TimelineAlign.center,
+                    isFirst: true,
+                    indicatorStyle: IndicatorStyle(
+                      height: 30,
+                      color: Colors.grey,
+                      padding: const EdgeInsets.all(0),
+                      iconStyle: IconStyle(
+                        color: Colors.white,
+                        iconData: Icons.check,
+                      ),
+                    ),
+                    startChild: Container(
+                      padding: EdgeInsets.only(bottom: 0),
+                      alignment: Alignment.center,
+                      constraints: const BoxConstraints(
+                        minWidth: 50,
+                      ),
+                      child: Text("50KP"),
+                    ),
+                  ),
+                  TimelineTile(
+                    axis: TimelineAxis.horizontal,
+                    alignment: TimelineAlign.center,
+                    isLast: true,
+                    indicatorStyle: IndicatorStyle(
+                      height: 30,
+                      color: Colors.grey,
+                      indicatorXY: 0.7,
+                      iconStyle: IconStyle(
+                        color: Colors.white,
+                        iconData: Icons.check,
+                      ),
+                    ),
+                    endChild: Container(
+                      padding: EdgeInsets.only(bottom: 0),
+                      alignment: Alignment.center,
+                      constraints: const BoxConstraints(
+                        minWidth: 50,
+                      ),
+                      child: Text("50KP"),
+                    ),
+                  )
+                ]),
+              ),
               Container(
                 height: MediaQuery.of(context).size.height - 200,
                 child: PageView(
