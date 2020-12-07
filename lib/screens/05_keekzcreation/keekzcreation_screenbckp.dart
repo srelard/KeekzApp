@@ -9,7 +9,6 @@ import 'package:keekz_application/utilities/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'local_widgets/indicator.dart';
 import 'local_widgets/textField.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 class KeekzScreen extends StatefulWidget {
   static final String id = 'map_screen';
@@ -206,7 +205,7 @@ class _KeekzScreenState extends State<KeekzScreen> {
         leading: IconButton(
             color: kBlue, onPressed: () {}, icon: Icon(Icons.chevron_left)),
         title: Text(
-          'Erstelle deinen Keekz',
+          'KeekzCreation',
           style: TextStyle(
             color: kBlack,
             fontSize: 35.0,
@@ -237,12 +236,9 @@ class _KeekzScreenState extends State<KeekzScreen> {
                 ),
               ),
               Container(
-                  height: 40,
-                  child: TimelineTile(axis: TimelineAxis.horizontal)),
-              Container(
                 height: MediaQuery.of(context).size.height - 200,
                 child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: ClampingScrollPhysics(),
                   controller: _pageController,
                   onPageChanged: (int page) {
                     setState(() {
@@ -311,6 +307,7 @@ class _KeekzScreenState extends State<KeekzScreen> {
                             ),
                           ],
                         ),
+
                         SizedBox(height: 12),
                         Form(
                           autovalidateMode: _autoValidate
@@ -343,90 +340,50 @@ class _KeekzScreenState extends State<KeekzScreen> {
                             color: Colors.grey[300],
                             child: Icon(Icons.map)),
                         SizedBox(height: 12),
-                        Container(
-                          //color: Colors.grey[300],
-                          child: Column(children: [
-                            Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "Wie würdest du deinen Keekz charakterisieren?",
-                                  style: TextStyle(fontSize: 18),
-                                )),
-                            SizedBox(
-                              height: 5,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Wrap(
+                              spacing: 6,
+                              runSpacing: 0,
+                              children: _keekzProperties.toList(),
                             ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              alignment: Alignment.topLeft,
-                              child: Wrap(
-                                alignment: WrapAlignment.start,
-                                spacing: 3,
-                                runSpacing: 0,
-                                children: _keekzProperties.toList(),
-                              ),
-                            ),
-                          ]),
+                          ),
                         ),
+                        //Text("Anlass"),
                         Divider(
                           height: 30,
                         ),
-                        Container(
-                          //color: Colors.grey[300],
-                          child: Column(children: [
-                            Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "Erzähle uns etwas über den Anlass deines Keekz:",
-                                  style: TextStyle(fontSize: 18),
-                                )),
-                            SizedBox(
-                              height: 5,
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 3,
+                              runSpacing: 0,
+                              children: _keekzOccasions.toList(),
                             ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              alignment: Alignment.topLeft,
-                              child: Wrap(
-                                alignment: WrapAlignment.start,
-                                spacing: 3,
-                                runSpacing: 0,
-                                children: _keekzOccasions.toList(),
-                              ),
-                            ),
-                          ]),
+                          ),
                         ),
                         SizedBox(height: 12),
-                        /*  Text(
+                        Text(
                             'Selected Properties: ${_filtersProperties.join(', ')}'),
                         Text(
                             'Selected Occasions: ${_filtersOccasions.join(', ')}'),
-                             */
-
-                        Expanded(
-                          child: Container(child: Text("")),
+                        SizedBox(
+                          height: 40,
                         ),
                         Container(
-                            /* color: Colors.red, */
                             width: MediaQuery.of(context).size.width * 0.6,
                             child: RaisedButton(
                               color: Colors.orangeAccent,
                               child: Text("Weiter"),
                               onPressed: () async {
                                 if (_formKey.currentState.validate()) {
-                                  FocusScope.of(context).unfocus();
                                   Scaffold.of(context).showSnackBar(SnackBar(
-                                      duration: Duration(seconds: 2),
-                                      content: Text(
-                                          'Danke für deine Hilfe! Du hast bereits 50/100 KP erhalten.')));
-                                  _pageController.nextPage(
-                                    duration: Duration(milliseconds: 500),
-                                    curve: Curves.ease,
-                                  );
+                                      content: Text('Danke für deine Hilfe!')));
                                 }
                                 _formKey.currentState.save();
                               },
@@ -434,33 +391,7 @@ class _KeekzScreenState extends State<KeekzScreen> {
                       ],
                     ),
                     Container(
-                      child: _currentPage == _numPages - 1
-                          ? Container(
-                              // color: Colors.red,
-                              child: Align(
-                                alignment: FractionalOffset.bottomLeft,
-                                child: FlatButton(
-                                  onPressed: () {
-                                    _pageController.previousPage(
-                                      duration: Duration(milliseconds: 500),
-                                      curve: Curves.ease,
-                                    );
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.arrow_back,
-                                        color: Colors.black,
-                                        size: 30.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Text('Test'),
+                      child: Text("Bla"),
                     )
                   ],
                 ),
