@@ -15,39 +15,44 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 20, right: 20),
+      padding: EdgeInsets.only(left: 12, right: 12),
       child: TextFormField(
+        onChanged: (value) => {
+          {print("check")}
+        },
         onSaved: onSaved,
         validator: validator,
-        autofocus: true,
+        autofocus: false,
         obscureText: obsecure,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 18,
         ),
         decoration: InputDecoration(
-            hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            hintStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
             hintText: hint,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
                 color: Theme.of(context).primaryColor,
-                width: 2,
+                width: 1,
               ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
                 color: Theme.of(context).primaryColor,
-                width: 3,
+                width: 1,
               ),
             ),
             prefixIcon: Padding(
               child: IconTheme(
-                data: IconThemeData(color: Theme.of(context).primaryColor),
+                data: IconThemeData(color: Colors.orangeAccent),
                 child: icon,
               ),
-              padding: EdgeInsets.only(left: 30, right: 10),
-            )),
+              padding: EdgeInsets.only(left: 20, right: 10),
+            ),
+            suffixText: '+50 XP',
+            suffixStyle: const TextStyle(color: Colors.greenAccent)),
       ),
     );
   }

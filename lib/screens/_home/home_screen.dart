@@ -57,12 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
-      floatingActionButton: new FloatingActionButton(
+      /* floatingActionButton: new FloatingActionButton(
         onPressed: () {},
         backgroundColor: Colors.orangeAccent,
         child: new Icon(Icons.add),
         elevation: 4.0,
-      ),
+      ), */
       bottomNavigationBar:
           //MaterialBar(),
           //ConvexBar(),
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
