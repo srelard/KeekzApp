@@ -25,11 +25,22 @@ class _KeekzScreenState extends State<KeekzScreen> {
   File _image1;
   File _image2;
   File _image3;
-  String _caption = '';
-  final int _numPages = 2;
-  int _currentPage = 0;
   List<String> _filtersProperties;
   List<String> _filtersOccasions;
+
+  final int _numPages = 2;
+  int _currentPage = 0;
+  final PageController _pageController = PageController(initialPage: 0);
+
+  List<Widget> _buildPageIndicator() {
+    List<Widget> list = [];
+    for (int i = 0; i < _numPages; i++) {
+      list.add(i == _currentPage
+          ? Indicator(isActive: true)
+          : Indicator(isActive: false));
+    }
+    return list;
+  }
 
   @override
   void initState() {
@@ -125,16 +136,6 @@ class _KeekzScreenState extends State<KeekzScreen> {
     }
   }
 
-  List<Widget> _buildPageIndicator() {
-    List<Widget> list = [];
-    for (int i = 0; i < _numPages; i++) {
-      list.add(i == _currentPage
-          ? Indicator(isActive: true)
-          : Indicator(isActive: false));
-    }
-    return list;
-  }
-
   _androidDialog(String key) {
     showDialog(
       context: context,
@@ -211,7 +212,17 @@ class _KeekzScreenState extends State<KeekzScreen> {
           ),
         ),
       ),
-      body: GestureDetector(
+      body:
+          /* PageView(
+        physics: ClampingScrollPhysics(),
+        controller: _pageController,
+        onPageChanged: (int page) {
+          setState(() {
+            _currentPage = page;
+          });
+        },
+        children: */
+          GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Column(
@@ -224,143 +235,167 @@ class _KeekzScreenState extends State<KeekzScreen> {
                   children: _buildPageIndicator(),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () => {_androidDialog("1")},
-                    child: Container(
-                      height: width * 0.3,
-                      width: width * 0.3,
-                      color: Colors.grey[300],
-                      child: _image1 == null
-                          ? Icon(
-                              Icons.add_a_photo,
-                              color: Colors.white70,
-                              size: 50.0,
-                            )
-                          : Image(
-                              image: FileImage(_image1),
-                              fit: BoxFit.cover,
+              Container(
+                height: MediaQuery.of(context).size.height - 200,
+                child: PageView(
+                  physics: ClampingScrollPhysics(),
+                  controller: _pageController,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentPage = page;
+                    });
+                  },
+                  children: [
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () => {_androidDialog("1")},
+                              child: Container(
+                                height: width * 0.3,
+                                width: width * 0.3,
+                                color: Colors.grey[300],
+                                child: _image1 == null
+                                    ? Icon(
+                                        Icons.add_a_photo,
+                                        color: Colors.white70,
+                                        size: 50.0,
+                                      )
+                                    : Image(
+                                        image: FileImage(_image1),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => {_androidDialog("2")},
-                    child: Container(
-                      height: width * 0.3,
-                      width: width * 0.3,
-                      color: Colors.grey[300],
-                      child: _image2 == null
-                          ? Icon(
-                              Icons.add_a_photo,
-                              color: Colors.white70,
-                              size: 50.0,
-                            )
-                          : Image(
-                              image: FileImage(_image2),
-                              fit: BoxFit.cover,
+                            GestureDetector(
+                              onTap: () => {_androidDialog("2")},
+                              child: Container(
+                                height: width * 0.3,
+                                width: width * 0.3,
+                                color: Colors.grey[300],
+                                child: _image2 == null
+                                    ? Icon(
+                                        Icons.add_a_photo,
+                                        color: Colors.white70,
+                                        size: 50.0,
+                                      )
+                                    : Image(
+                                        image: FileImage(_image2),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => {_androidDialog("3")},
-                    child: Container(
-                      height: width * 0.3,
-                      width: width * 0.3,
-                      color: Colors.grey[300],
-                      child: _image3 == null
-                          ? Icon(
-                              Icons.add_a_photo,
-                              color: Colors.white70,
-                              size: 50.0,
-                            )
-                          : Image(
-                              image: FileImage(_image3),
-                              fit: BoxFit.cover,
+                            GestureDetector(
+                              onTap: () => {_androidDialog("3")},
+                              child: Container(
+                                height: width * 0.3,
+                                width: width * 0.3,
+                                color: Colors.grey[300],
+                                child: _image3 == null
+                                    ? Icon(
+                                        Icons.add_a_photo,
+                                        color: Colors.white70,
+                                        size: 50.0,
+                                      )
+                                    : Image(
+                                        image: FileImage(_image3),
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
                             ),
+                          ],
+                        ),
+
+                        SizedBox(height: 12),
+                        Form(
+                          autovalidateMode: _autoValidate
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
+                          key: _formKey,
+                          child: Column(
+                            children: <Widget>[
+                              CustomTextField(
+                                onSaved: (input) {
+                                  _keekzName = input;
+                                },
+                                validator: (input) => input.length < 4
+                                    ? 'Dein Name muss mindestens 4 Zeichen lang sein'
+                                    : input.length > 15
+                                        ? 'Dein Name darf maximal 15 Zeichen lang sein'
+                                        : null,
+                                icon: Icon(MdiIcons.cookie),
+                                hint: "Gib deinem Keekz einen Namen",
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width,
+                            height: 190,
+                            color: Colors.grey[300],
+                            child: Icon(Icons.map)),
+                        SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Wrap(
+                              spacing: 6,
+                              runSpacing: 0,
+                              children: _keekzProperties.toList(),
+                            ),
+                          ),
+                        ),
+                        //Text("Anlass"),
+                        Divider(
+                          height: 30,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                            child: Wrap(
+                              alignment: WrapAlignment.start,
+                              spacing: 3,
+                              runSpacing: 0,
+                              children: _keekzOccasions.toList(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                            'Selected Properties: ${_filtersProperties.join(', ')}'),
+                        Text(
+                            'Selected Occasions: ${_filtersOccasions.join(', ')}'),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: RaisedButton(
+                              color: Colors.orangeAccent,
+                              child: Text("Weiter"),
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text('Danke für deine Hilfe!')));
+                                }
+                                _formKey.currentState.save();
+                              },
+                            )),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12),
-              Form(
-                autovalidateMode: _autoValidate
-                    ? AutovalidateMode.onUserInteraction
-                    : AutovalidateMode.disabled,
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    CustomTextField(
-                      onSaved: (input) {
-                        _keekzName = input;
-                      },
-                      validator: (input) => input.length < 4
-                          ? 'Dein Name muss mindestens 4 Zeichen lang sein'
-                          : input.length > 15
-                              ? 'Dein Name darf maximal 15 Zeichen lang sein'
-                              : null,
-                      icon: Icon(MdiIcons.cookie),
-                      hint: "Gib deinem Keekz einen Namen",
-                    ),
-                    SizedBox(height: 10),
+                    Container(
+                      child: Text("Bla"),
+                    )
                   ],
                 ),
               ),
-              SizedBox(height: 12),
-              Container(
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width,
-                  height: 190,
-                  color: Colors.grey[300],
-                  child: Icon(Icons.map)),
-              SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Wrap(
-                    spacing: 6,
-                    runSpacing: 0,
-                    children: _keekzProperties.toList(),
-                  ),
-                ),
-              ),
-              //Text("Anlass"),
-              Divider(
-                height: 30,
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Wrap(
-                    alignment: WrapAlignment.start,
-                    spacing: 3,
-                    runSpacing: 0,
-                    children: _keekzOccasions.toList(),
-                  ),
-                ),
-              ),
-              SizedBox(height: 12),
-              Text('Selected Properties: ${_filtersProperties.join(', ')}'),
-              Text('Selected Occasions: ${_filtersOccasions.join(', ')}'),
-              SizedBox(
-                height: 40,
-              ),
-              Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: ElevatedButton(
-                    style: ButtonStyle(),
-                    child: Text("Weiter"),
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Danke für deine Hilfe!')));
-                      }
-                      _formKey.currentState.save();
-                    },
-                  )),
             ],
           ),
         ),

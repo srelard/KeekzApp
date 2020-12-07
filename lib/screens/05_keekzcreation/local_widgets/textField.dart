@@ -51,7 +51,7 @@ class CustomTextField extends StatelessWidget {
               ),
               padding: EdgeInsets.only(left: 20, right: 10),
             ),
-            suffixText: '+50 XP',
+            suffixText: '+50 KP',
             suffixStyle: const TextStyle(color: Colors.greenAccent)),
       ),
     );
