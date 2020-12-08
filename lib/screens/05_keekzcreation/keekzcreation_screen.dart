@@ -7,6 +7,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:keekz_application/utilities/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'create_screen_1.dart';
 import 'local_widgets/indicator.dart';
 import 'local_widgets/textField.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -469,10 +470,13 @@ class _KeekzScreenState extends State<KeekzScreen> {
                                       duration: Duration(seconds: 2),
                                       content: Text(
                                           'Danke für deine Hilfe! Du hast bereits 50/100 KP erhalten.')));
-                                  _pageController.nextPage(
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => MediaGrid(),
+                                  ));
+                                  /* _pageController.nextPage(
                                     duration: Duration(milliseconds: 500),
                                     curve: Curves.ease,
-                                  );
+                                  ); */
                                 }
                                 _formKey.currentState.save();
                               },

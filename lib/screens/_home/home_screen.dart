@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:keekz_application/utilities/constants.dart';
@@ -72,13 +74,26 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: _currentTab,
         onTap: (int index) {
           setState(() {
-            _currentTab = index;
+            index != 2 ? _currentTab = index : null;
           });
-          _pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 10),
-            curve: Curves.easeIn,
-          );
+          index == 2
+              ? {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => MediaGrid(),
+                  )),
+                  /* Timer(
+                      Duration(seconds: 1),
+                      () => _pageController.animateToPage(
+                            index,
+                            duration: Duration(milliseconds: 10),
+                            curve: Curves.easeIn,
+                          )) */
+                }
+              : _pageController.animateToPage(
+                  index,
+                  duration: Duration(milliseconds: 10),
+                  curve: Curves.easeIn,
+                );
         },
         inactiveColor: kWhite,
         items: [
