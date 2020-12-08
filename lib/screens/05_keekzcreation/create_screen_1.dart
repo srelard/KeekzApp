@@ -152,7 +152,7 @@ class _MediaGridState extends State<MediaGrid> {
                   itemCount: _mediaList.length,
                   padding: EdgeInsets.all(0),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
+                      crossAxisCount: 4,
                       mainAxisSpacing: 5,
                       crossAxisSpacing: 5),
                   itemBuilder: (BuildContext context, int index) {
